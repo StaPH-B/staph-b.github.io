@@ -27,7 +27,6 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
-[Go to page 2](https://staph-b.github.io/northeast-region/Page2.md)
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
