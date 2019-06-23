@@ -14,10 +14,13 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+
+<!-- theiagen edited out site title so logo stays on top -->
+
+        <!--<h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>-->
 
         {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" alt="Logo" />
+          <img align="left" style="border-bottom:15px solid white" src="{{site.logo | relative_url}}" alt="Logo" /> <!--theiagen align left and border-->
         {% endif %}
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
@@ -38,12 +41,20 @@
         </ul>
         {% endif %}
 
+<!-- theiagen edits of default layout begin here -->
+
         <h2>StaPH-B Resources</h2>
-        <p><a href="/pages/quality.html">Quality Page</a></p>
-        <p><a href="/pages/training.html">Training Page</a></p>
-        <p><a href="/pages/cloud-computing.html">Cloud Computing Page</a></p>
-        <p><a href="/pages/software.html">Software Page</a></p>
-        <p><a href="/pages/cluster-detection.html">Cluster Detection Page</a></p>
+        <p><a href="/pages/quality.html">Quality</a></p>
+        <p><a href="/pages/training.html">Training</a></p>
+        <p><a href="/pages/cloud-computing.html">Cloud Computing</a></p>
+        <p><a href="/pages/software.html">Software</a></p>
+        <p><a href="/pages/cluster-detection.html">Cluster Detection</a></p>
+
+        <h2>Regional Resources</h2>
+        <p><a href="https://staph-b.github.io/midwest-region/">Midwest Region</a></p>
+        <p><a href="https://staph-b.github.io/northeast-region/">Northeast Region</a></p>
+
+<!-- theiagen edits of default layout end here -->
 
       </header>
       <section>
