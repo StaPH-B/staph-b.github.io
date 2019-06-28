@@ -16,9 +16,12 @@ StaPH-B members possess a wide range bioinformatics experience, from molecular b
 ### Current Projects
 - Building templates for various solutions regarding state informatics infrastructure
   - e.g. security documents for Linux OS, University Affiliations, etc.
+
 - Cloud computing
   - StaPH-B Google/AWS VM with preloaded bioinformatics applications
+
 - Defining communication standards between Bioinformatics specialists and Epidemiologists
+
 - Development and validation of bioinformatics tools for various applications:
   - NGS quality assessment
   - In silico ​ taxonomic identification, serotyping, virulence determination, and antimicrobial resistance from NGS data
