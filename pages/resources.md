@@ -4,12 +4,12 @@ layout: default
 
 ## Welcome to the Resources Page!
 
-[Cloud Computing](/cloud-computing.html)
+[Cloud Computing](/pages/cloud-computing.html)
 
-[Cluster Detection](/cluster-detection.html)
+[Cluster Detection](/pages/cluster-detection.html)
 
-[Quality](/quality.html)
+[Quality](/pages/quality.html)
 
-[Software](/software.html)
+[Software](/pages/software.html)
 
-[Training](/training.html)
+[Training](/pages/training.html)
