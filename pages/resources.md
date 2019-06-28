@@ -4,12 +4,12 @@ layout: default
 
 ## Welcome to the Resources Page!
 
-[Cloud Computing](https:staph-b.github.io/pages/cloud-computing.html)
+[Cloud Computing](/cloud-computing.html)
 
-[Cluster Detection](https:staph-b.github.io/pages/cluster-detection.html)
+[Cluster Detection](/cluster-detection.html)
 
-[Quality](https:staph-b.github.io/pages/quality.html)
+[Quality](/quality.html)
 
-[Software](https:staph-b.github.io/pages/software.html)
+[Software](/software.html)
 
-[Training](https:staph-b.github.io/pages/training.html)
+[Training](/training.html)
