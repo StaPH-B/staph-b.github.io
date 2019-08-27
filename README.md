@@ -1,7 +1,7 @@
 
-# Welcome to the StaPH-B landing page!
+# Welcome to StaPH-B
 
-### About
+### About StaPH-B
 
 The State Public Health Bioinformatics Group (StaPH-B) is a consortium of public health scientists interested in addressing the common barriers impeding bioinformatics implementation in state public health laboratories. Our efforts are focused in the following areas:
 
