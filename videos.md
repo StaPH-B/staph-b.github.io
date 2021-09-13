@@ -1,6 +1,6 @@
 ---
 layout: videos
 title: Videos
-image: assets/images/pic01.jpg
+image: assets/images/camera.jpg
 nav-menu: true
 ---
