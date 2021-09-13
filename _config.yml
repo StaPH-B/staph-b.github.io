@@ -1,3 +1,49 @@
-theme: jekyll-theme-minimal
-description: Resource site for the State Public Health Bioinformatics group.
-logo: /assets/img/logo.png
+# site settings
+title: StaPH-B
+subtitle: State Public Health Bioinformatics Workgroup
+email:
+description: A responsive site template designed by HTML5 Up<br /> and released under the Creative Commons.
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: # the base hostname & protocol for your site
+author:
+street_address:
+city:
+state:
+zip_code:
+country: United States of America
+phone:
+
+# homepage tiles
+tiles-source: pages # accepts "posts" or "pages"
+tiles-count: 6
+
+# collections
+collections:
+  videos:
+
+# social settings (key must match name of font awesome icon)
+# see https://fontawesome.com/icons?d=gallery&p=2&s=brands
+# Icons are not shown if value is empty
+# You need to restart jekyll for changes to have an effect
+socials:
+  GitHub: https://github.com/StaPH-B
+  GitLab:
+  Google-Plus:
+  Instagram:
+  LinkedIn:
+  Twitter:
+  Facebook:
+  Slack:
+  youtube: https://www.youtube.com/channel/UC4GughelEJxkJORLTCd51eg
+
+# build settings
+markdown: kramdown
+
+sass:
+  style: compressed
+
+exclude:
+- "*.gemspec"
+- LICENSE.md
+- CONTRIBUTING.md
+- README.md
