@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+    Forty by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  -->
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+      <!-- One -->
+      <section id="one">
+	<div class="inner">
+    {% for video in site.videos reversed %}
+  	  {% if video.video_id != 404 %}
+    	  <h1>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h1>
+    	  <p>{{ video.content }}</p>
+        <iframe id="ytplayer"
+          type="text/html"
+          width="640"
+          height="360"
+          src="https://www.youtube.com/embed/{{ video.video_id }}?autoplay=0&origin=http://example.com"
+          frameborder="0">
+        </iframe>
+        <hr>
+  	  {% endif %}
+    {% endfor %}
+	</div>
+      </section>
+
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+
+</html>

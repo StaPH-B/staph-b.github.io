@@ -1,27 +1,71 @@
+# Forty - Jekyll Theme
 
-# Welcome to StaPH-B
+A Jekyll version of the "Forty" theme by [HTML5 UP](https://html5up.net/).  
 
-### About StaPH-B
+![Forty Theme](assets/images/forty.jpg "Forty Theme")
 
-The State Public Health Bioinformatics Group (StaPH-B) is a consortium of public health scientists interested in addressing the common barriers impeding bioinformatics implementation in state public health laboratories. Our efforts are focused in the following areas:
+# How to Use
 
-- Building and sustaining an appropriate bioinformatics infrastructure within regional state PHLs
-- Training public health scientists on the fundamentals of bioinformatics
-- Development of bioinformatics applications, tools and pipelines
-- Facilitation of CLIA approval for Bioinformatics applications, tools and pipelines
-- Partner with the CDC and APHL to ensure compatibility and utility of our efforts.
+For those unfamiliar with how Jekyll works, check out [jekyllrb.com](https://jekyllrb.com/) for all the details, 
+or read up on just the basics of [front matter](https://jekyllrb.com/docs/frontmatter/), [writing posts](https://jekyllrb.com/docs/posts/), 
+and [creating pages](https://jekyllrb.com/docs/pages/).
 
-StaPH-B members possess a wide range bioinformatics experience, from molecular biologists gaining familiarity with NGS and web-based applications, to experienced practitioners with advanced degrees in the field capable of scripting custom tools. This diversity of experience allows StaPH-B to approach problems from a multitude of perspectives and develop high-efficacy solutions that are both technically sound, and practical to public health investigations.
+- **GitLab**: Simply fork this repository and start editing the `_config.yml` file!  
+- **GitHub**:
+1. Fork this repository.
+2. Set up a Personal Access Token ([instructions](https://jekyllrb.com/docs/continuous-integration/github-actions/#providing-permissions)) named `JEKYLL_PAT`.
+3. The GitHub Actions workflow should have run when you forked the repo. This initial run will fail because of the missing `JEKYLL_PAT` secret not being set. Got to the workflow run and click "re-run all workflows". This time it should succeed.
+4. Start editing the `_config.yml` file!
 
-### Current Projects
-1. Building templates for various solutions regarding state informatics infrastructure
-    + e.g. security documents for Linux OS, University Affiliations, etc.
-2. Cloud computing
-    + StaPH-B Google/AWS VM with preloaded bioinformatics applications
-3. Defining communication standards between Bioinformatics specialists and Epidemiologists
+> NOTE: GitHub Actions is required to deploy to GitHub Pages because GitHub [refuses to update their version of Jekyll](https://github.com/github/pages-gem/issues/651).
 
-4. Development and validation of bioinformatics tools for various applications:
-    + NGS quality assessment
-    + In silico ​ taxonomic identification, serotyping, virulence determination, and antimicrobial resistance from NGS data
-    + Reference-based cluster analysis (hqSNP)
-    + Reference-free cluster analysis (pan genome based clustering)  
+# Added Features
+
+* **[Formspree.io](https://formspree.io/) contact form integration** - just add your email to the `_config.yml` and it works!
+* Use `_config.yml` to **set whether the homepage tiles should pull pages or posts**, as well as how many to display.
+* Add your **social profiles** easily in `_config.yml`. Only social profiles buttons you enter in `config.yml` show up on the site footer!
+* Set **featured images** in front matter.
+
+# Credits
+
+Original README from HTML5 UP:
+
+```
+Forty by HTML5 UP
+html5up.net | @ajlkn
+Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+
+This is Forty, my latest and greatest addition to HTML5 UP and, per its incredibly
+creative name, my 40th (woohoo)! It's built around a grid of "image tiles" that are
+set up to smoothly transition to secondary landing pages (for which a separate page
+template is provided), and includes a number of neat effects (check out the menu!),
+extra features, and all the usual stuff you'd expect. Hope you dig it!
+
+Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
+you can use for pretty much whatever.
+
+(* = not included)
+
+AJ
+aj@lkn.io | @ajlkn
+
+
+Credits:
+
+	Demo Images:
+		Unsplash (unsplash.com)
+
+	Icons:
+		Font Awesome (fortawesome.github.com/Font-Awesome)
+
+	Other:
+		jQuery (jquery.com)
+		html5shiv.js (@afarkas @jdalton @jon_neal @rem)
+		background-size polyfill (github.com/louisremi)
+		Misc. Sass functions (@HugoGiraudel)
+		Respond.js (j.mp/respondjs)
+		Skel (skel.io)
+```
+
+Repository [Jekyll logo](https://github.com/jekyll/brand) icon licensed under a [Creative Commons Attribution 4.0 International License](http://choosealicense.com/licenses/cc-by-4.0/).
