@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-    Forty by HTML5 UP
-    html5up.net | @ajlkn
-    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-  -->
+
 <html>
 
   {% include head.html %}
@@ -18,11 +14,11 @@
 
       <!-- One -->
       <section id="one">
-	<div class="inner">
+  <div class="inner">
     {% for video in site.videos reversed %}
-  	  {% if video.video_id != 404 %}
-    	  <h1>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h1>
-    	  <p>{{ video.content }}</p>
+      {% if video.video_id != 404 %}
+        <h1>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h1>
+        <p>{{ video.content }}</p>
         <iframe id="ytplayer"
           type="text/html"
           width="640"
@@ -31,9 +27,9 @@
           frameborder="0">
         </iframe>
         <hr>
-  	  {% endif %}
+      {% endif %}
     {% endfor %}
-	</div>
+  </div>
       </section>
 
     </div>

@@ -2,8 +2,8 @@
 title: StaPH-B
 subtitle: State Public Health Bioinformatics Workgroup
 email:
-description: A responsive site template designed by HTML5 Up<br /> and released under the Creative Commons.
-baseurl: "/" # the subpath of your site, e.g. /blog
+description:
+baseurl: # the subpath of your site, e.g. /blog
 url: # the base hostname & protocol for your site
 author:
 street_address:
@@ -15,7 +15,7 @@ phone:
 
 # homepage tiles
 tiles-source: pages # accepts "posts" or "pages"
-tiles-count: 6
+tiles-count: 3
 
 # collections
 collections:
