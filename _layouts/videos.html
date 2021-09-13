@@ -13,23 +13,27 @@
     <div id="main" class="alt">
 
       <!-- One -->
-      <section id="one">
-  <div class="inner">
-    {% for video in site.videos reversed %}
-      {% if video.video_id != 404 %}
-        <h1>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h1>
-        <p>{{ video.content }}</p>
-        <iframe id="ytplayer"
-          type="text/html"
-          width="640"
-          height="360"
-          src="https://www.youtube.com/embed/{{ video.video_id }}?autoplay=0&origin=http://example.com"
-          frameborder="0">
-        </iframe>
-        <hr>
-      {% endif %}
-    {% endfor %}
-  </div>
+      <section id="one" class="spotlights">
+
+        {% for video in site.videos reversed %}
+          {% if video.video_id != 404 %}
+            <section>
+              <iframe id="ytplayer"
+                type="text/html"
+                width="640"
+                height="360"
+                src="https://www.youtube.com/embed/{{ video.video_id }}?autoplay=0&origin=http://example.com"
+                frameborder="0">
+              </iframe>
+              <div class="content">
+                <div class="inner">
+                  <h3>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h3>
+                    <p>{{ video.content }}</p>
+                </div>
+              </div>
+            </section>
+          {% endif %}
+        {% endfor %}
       </section>
 
     </div>
