@@ -9,6 +9,43 @@
   #main {
     background-color: _palette(bg-alt);
 
+    &.readable{
+      $palette: (bg: #f2f3f4);
+      background-color: _palette(bg-read) !important;
+      color: _palette(fg-read) !important;
+
+      strong, b {
+        color: _palette(fg-read) !important;
+        font-weight: _font(weight-bold);
+      }
+      h1, h2, h3, h4, h5, h6 {
+        color: _palette(fg-read) !important;
+      }
+      hr {
+        border-bottom: solid 1px _palette(fg-read) !important;
+      }
+      a {
+        &:hover {
+          color: _palette(highlight-read) !important;
+        }
+        &:active {
+          color: desaturate(darken(_palette(highlight-read), 15), 5) !important;
+        }
+      }
+      blockquote {
+        border-left: solid 4px _palette(fg-read) !important;
+      }
+
+      code {
+        background: #f2f3f4 !important;
+        color: _palette(fg-read) !important;
+      }
+
+      hr {
+        border-bottom: solid 1px _palette(fg-read) !important;
+      }
+    }
+
     > * {
       border-top: solid 1px _palette(border);
 
