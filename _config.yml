@@ -1,6 +1,6 @@
 # site settings
 title: StaPH-B
-subtitle: State Public Health Bioinformatics Workgroup
+subtitle: State Public Health Bioinformatics Group
 email:
 description:
 baseurl: # the subpath of your site, e.g. /blog
@@ -20,6 +20,10 @@ tiles-count: 3
 # collections
 collections:
   videos:
+  resources:
+    output: true
+  trainings:
+    output: true
 
 # social settings (key must match name of font awesome icon)
 # see https://fontawesome.com/icons?d=gallery&p=2&s=brands

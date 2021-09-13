@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+
+    <!-- Main -->
+    <div id="main" class="alt">
+
+      <!-- One -->
+      <section id="one" class="spotlights">
+        {% for post in site.resources reversed %}
+          {% if post.post_id != 404 %}
+            <section class="inline">
+              <div class="content">
+                <div class="inner">
+                  <a href="{{ post.url  | relative_url }}" class="link">
+                    <h3>{{ post.date | date: '%B %Y' }} - {{ post.title }}</h3>
+                    {% if post.authors %}
+                    <h4>By: {{ post.authors }}</h4>
+                    {% endif %}
+                    <p>{{ post.description }}</p>
+                  </a>
+                </div>
+              </div>
+            </section>
+          {% endif %}
+        {% endfor %}
+      </section>
+
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+
+</html>

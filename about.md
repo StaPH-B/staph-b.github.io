@@ -45,7 +45,7 @@ show_tile: false
   <!-- Spotlight Two -->
   <section>
     <a href="generic.html" class="image">
-      <img src="{% link assets/images/hexagon.jpg %}" alt="" data-position="top center" />
+      <img src="{% link assets/images/blueprint.jpg %}" alt="" data-position="top center" />
     </a>
     <div class="content">
       <div class="inner">
@@ -67,9 +67,26 @@ show_tile: false
           </ul>
         </p>
         <ul class="actions">
-          <li><a href="https://github.com/StaPH-B" class="button">Learn more on our GitHub</a></li>
+          <li><a href="https://github.com/StaPH-B" class="button">See our Projects on GitHub</a></li>
         </ul>
       </div>
     </div>
   </section>
+
+  <!-- Spotlight Three -->
+  <section>
+    <a href="generic.html" class="image">
+      <img src="{% link assets/images/staphb-aphl2017.jpg %}" alt="" data-position="top center" />
+    </a>
+    <div class="content">
+      <div class="inner">
+        <header class="major">
+          <h3>Our History</h3>
+        </header>
+        <p>It started with four bioinformaticians: Kevin Libuit, Sean Wang, Kelly Oakeson, and Joel Sevinsky. And by four we mean there were at least four of us bothering Heather Carleton for help with bioinformatics of enteric pathogens around winter 2016/2017. Heather suggested, probably to save herself from answering too many questions and often the same question four times, that the group of should “talk amongst ourselves”, and our contact information was shared. And that was the beginning.
+        </p>
+      </div>
+    </div>
+  </section>
+</section>
 </div>

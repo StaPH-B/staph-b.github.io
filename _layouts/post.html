@@ -1,5 +1,10 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
+<!--
+  Forty by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 
 {% include head.html %}
@@ -10,13 +15,20 @@
 
 
 <!-- Main -->
+{% if page.readable %}
+<div id="main" class="readable">
+{% else %}
 <div id="main" class="alt">
-
+{% endif %}
 <!-- One -->
 <section id="one">
   <div class="inner">
     <header class="major">
       <h1>{{ page.title }}</h1>
+      {% if page.authors %}
+      <h4>By: {{ page.authors }}</h4>
+      {% endif %}
+      <h4>{{ page.date | date: '%B %d, %Y' }}</h4>
     </header>
     {% if page.image %}<span class="image main"><img src="{{ site.baseurl }}/{{ page.image }}" alt="" /></span>{% endif %}
     {{ content }}
