@@ -26,26 +26,24 @@
         </div>
     </section>
 
+
     <!-- Main -->
     <div id="main" class="alt">
 
       <!-- One -->
       <section id="one" class="spotlights">
-
-        {% for video in site.videos reversed %}
-          {% if video.video_id != 404 %}
-            <section>
-              <iframe id="ytplayer"
-                type="text/html"
-                width="640"
-                height="360"
-                src="https://www.youtube.com/embed/{{ video.video_id }}?autoplay=0"
-                frameborder="0">
-              </iframe>
+        {% for post in site.trainings reversed %}
+          {% if post.post_id != 404 %}
+            <section class="inline">
               <div class="content">
                 <div class="inner">
-                  <h3>{{ video.date | date: '%B %Y' }} - {{ video.title }}</h3>
-                    <p>{{ video.content }}</p>
+                  <a href="{{ post.url  | relative_url }}" class="link">
+                    <h3>{{ post.date | date: '%B %Y' }} - {{ post.title }}</h3>
+                    {% if post.authors %}
+                    <h4>By: {{ post.authors }}</h4>
+                    {% endif %}
+                    <p>{{ post.description }}</p>
+                  </a>
                 </div>
               </div>
             </section>
