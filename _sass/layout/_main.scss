@@ -37,12 +37,20 @@
       }
 
       code {
-        background: #f2f3f4 !important;
-        color: _palette(fg-read) !important;
+        background: _palette(fg-read) !important;
+        color: _palette(bg-read) !important;
       }
 
       hr {
         border-bottom: solid 1px _palette(fg-read) !important;
+      }
+
+      header {
+        > :first-child {
+            &:after {
+                background-color: _palette(fg-read);
+            }
+        }
       }
     }
 
