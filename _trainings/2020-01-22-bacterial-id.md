@@ -6,7 +6,7 @@ description: A webinar discussing how bacterial species identification is conduc
 authors: Joel Sevinsky
 readable: true
 ---
-##### Demystifying Webinar Series | January 2020 | Microbial Species Identification
+##### Demystifying Webinar Series
 For our January 2020 webinar, we discuss how bacterial species identification is conducted using NGS data. Topics focus on both average nucleotide identify (ANI) and Mash, how they are similar, how they are different, and when it is appropriate to use one versus the other.
 
 <iframe id="ytplayer"
