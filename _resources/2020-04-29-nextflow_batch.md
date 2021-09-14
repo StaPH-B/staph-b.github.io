@@ -47,32 +47,32 @@ You may be tempted to skip this step if you already have a user with access to A
 #### Step 1.1 Adding a programmatic user
 Navigate to the IAM Service and click on Users. Then click **Add user** and in the **User name** box add the user name that you would like, here I used `nextflow-programmatic-access`. Then select the box for **Programmatic access**. When you've finished click the **Next: Permissions** button.
 
-![add user]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/001.PNG)  
+![add user]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/001.PNG)  
 
 #### Step 1.2 Create a user group
 Next we need to create a group for this user to be a part of. We will later add policies to this group specific to Netflow. Click on the **Create Group** button.
 
-![create group]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/002.PNG)  
+![create group]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/002.PNG)  
 In the **Group name** box add the name of the group here I used `nextflow-group`. Then click the **Create group** button.
 
-![name group]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/003.PNG)  
+![name group]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/003.PNG)  
 
 After adding the group click the **Next: Tags**.
 
 #### Step 1.3 Adding Metadata tags
 This page will allow you to add any extra tags to the account to assign metadata. These can be used for billing information or programmatic select but these are optional and not really necessary for function. After you've completed click **Next: Review**. Here you should be presented with a screen that looks similar to below. Click **Create user** to finish the user creation.
 
-![review screen]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/004.PNG)  
+![review screen]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/004.PNG)  
 
 #### Step 1.4 Obtain Secret Access Key
 After user creation there will be a page that provides the security credentials for using the new Nextflow user. This includes the **Access Key ID** and **Secret access key**. These are crucial and are only generated once at this step. If they are lost you will have to delete and create a new user using the steps above. Click the **Download .csv** button and keep the file in a safe and secure location. These access credentials will be needed later.
 
-![user creation success]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/005.PNG)  
+![user creation success]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/005.PNG)  
 
 #### Step 1.5 Attach access policies to user group
 From the IAM user panel click **Groups** and click on the nextflow group created above, here we used `nextflow-group`. Then click on the **Attach Policy** button.
 
-![attach policy screen]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/007.PNG)  
+![attach policy screen]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/007.PNG)  
 
 From here we will add the following 3 policies:
 * **AmazonEC2FullAccess**
@@ -81,25 +81,25 @@ From here we will add the following 3 policies:
 
 You can find these by typing them into the Filter box.
 
-![final roles]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011.PNG)  
+![final roles]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011.PNG)  
 
 #### Step 1.6 Create permission roles for running AWS Batch
 From the IAM user panel click the **Roles** button. Here we will create a role for running EC2 Spot Instances. If you would rather create on-demand instances only you can skip this step, however you can achieve significant cost savings using Spot Instances. Click the **Create role** button.
 
-![create role]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011a.PNG)  
+![create role]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011a.PNG)  
 
 On the create role page scroll down and find and click on **EC2**.
 
-![create role page]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011b.PNG)  
-![ec2 on role page]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011c.PNG)  
+![create role page]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011b.PNG)  
+![ec2 on role page]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011c.PNG)  
 
 Then select the **EC2 - Spot Fleet Tagging** use case and click the **Next: Permissions** button you should see the screen below.
 
-![ec2 role]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011d.PNG)  
+![ec2 role]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011d.PNG)  
 
 Click the **Next: Tags** button add any additional metadata tags you would like then click the **Next: Review** button. Then fill out the **Role name** box with the name for this Role, here I used `AmazonEC2SpotFleetRole`.
 
-![create role final]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/011e.PNG)  
+![create role final]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/011e.PNG)  
 
 Once finished click the **Create role** button.
 
@@ -109,26 +109,26 @@ Amazon Machine Images or AMIs are used to create EC2 compute instances on AWS Cl
 #### Step 2.1 Startup the base ECS image in a virtual machine
 To create our custom AMI the first step is to startup a virtual machine running the base ECS image. To start goto the **EC2** Service in the AWS management console. Then click **Instances** and **Launch Instance**. To find the base ECS AMI, type `ECS` in the search box and select the **Amazon ECS-Optimized Amazon Linux AMI** image under the **AWS Marketplace**.
 
-![select ami]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/012.PNG)  
+![select ami]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/012.PNG)  
 
 A window will pop-up displaying the pricing information for using the AMI. Select **Continue**. The next step is to choose an instance type. Since we are creating this instance to customize the AMI we can select a small instance. Here I chose the t2.medium.
 
-![choose instance type]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/014.PNG)  
+![choose instance type]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/014.PNG)  
 
 The next step is configuring the instance details which can be configured to how you would normally set up an instance for interactive access. Here I use the default settings.
 
-![configure instance details]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/015.PNG)  
+![configure instance details]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/015.PNG)  
 
 In the add storage step we have an option to update the space available to the Docker container. By default the space is set to **22 GB**. This is the allowed space that can be used by docker on the image. Update the storage space for the needs of your pipeline. I choose to set it to `100` GB, which provides enough space for all the reads from a typical MiSeq run to fit in a single job with a bit of room to spare. You can change this to any amount you think is necessary for your pipeline.
 
-![add storage]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/017.PNG)  
+![add storage]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/017.PNG)  
 
 Once the instance storage is configured click the **Next: Add Tags** button and add the metadata tags you see fit. Once finished click the **Next: Configure Security Group**. Configure the instance so you can access it interactively. Once you have finished click the **Review and Launch**.
 
 #### Step 2.2 Install dependencies for Nextflow
 Once the instance is up an running login into the instance using the credentials you selected using the `ec2-user` account. Once logged in you should see a screen similar to below.
 
-![ec2-user login]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/018.PNG)  
+![ec2-user login]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/018.PNG)  
 
 The first step is to adjust the size of the docker storage device to match the updated size. If you use the command `docker info` you'll notice the `Base Device Size: 10.74GB`. We need to update this by editing the docker configuration file in `/etc/sysconfig/docker-storage`. Using `sudo vi` open the file and add `--storage-opt dm.basesize=100GB` adjusting the 100GB to reflect the size you picked above. The file should look something like this:
 ```
@@ -150,21 +150,21 @@ Once AWS-CLI is installed you can save the image by choosing **Action Image -> C
 ## Step 3 Define AWS Batch compute environment
 AWS Batch is made of two parts a queue where jobs are submitted and a compute environment, which defines what type of instances are used to run those jobs. Nextflow submits jobs to a specific AWS queue (defined in the Nextflow config file) allowing AWS Batch to handle the rest. To set this up go to the Batch service in the AWS management console. If this is your first time using batch you will see a screen like below. Click the **Get Started** button.
 
-![get started]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/021.PNG)  
+![get started]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/021.PNG)  
 
 You will then see the setup wizard for AWS Batch. The wizard doesn't setup things the way we need so we will select the **Skip wizard** button shown below.
 
-![skip wizard]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/022.PNG)  
+![skip wizard]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/022.PNG)  
 
 #### Step 3.1 Select compute environment name and permission roles
 
 Once you are at the AWS Batch dashboard select **Compute environments** and **Create environment**.
 
-![batch dashboard]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/023.PNG)  
+![batch dashboard]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/023.PNG)  
 
 Then select the box for **Managed** in the compute environment type if not already selected and enter a name in the **Compute environment name**.
 
-![create compute start]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/024.PNG)  
+![create compute start]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/024.PNG)  
 
 Next select **Create new role** for both **Service role** and **Instance role**. AWS Batch will create roles with the needed permissions. However, we will need to add an additional policy to the **ecsInstanceRole** later to use AWS S3. You may select an EC2 key pair to be able to ssh into the instance but this is optional.
 
@@ -175,7 +175,7 @@ If you would like to use Spot instances, which can be run at a fraction of the p
 
 Then under the **Allocation strategy** select **BEST_FIT** and choose the **AmazonEC2SpotFleetRole** we created earlier. Finally under the **Allowed instance types** select instance types you wish to use i.e. **c4.xlarge** or **c5.4xlarge**. I usually use the c4 and c5 family of instance types but this should be tailored to your workflow.
 
-![define compute]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/024a.PNG)  
+![define compute]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/024a.PNG)  
 
 #### Step 3.3 Determine compute environment limits
 Next you will see 3 options including **Minimum vCPUs**, **Desired vCPUs**, and **Maximum vCPUs**. These are used to define the amount of resources that can be used. **Note**: the values are vCPUs not number of instances, so if you only allow instances with 16 vCPUs to be used in your compute environment and you set the minimum vCPUs to 1. You will always have a 16vCPU instance running. The values are further defined as:
@@ -187,7 +187,7 @@ Next you will see 3 options including **Minimum vCPUs**, **Desired vCPUs**, and 
 
 Finally we need to select the AMI we created in the previous section. Check the box for **Enable user-specified AMI id** and enter the AMI from above then click **Validate AMI**.
 
-![resource limits]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/026.PNG)  
+![resource limits]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/026.PNG)  
 
 #### Step 3.4 Create the compute environment
 At the last step, define the subnet you would like your instances to run on (usually just default) and security group then click **Create**
@@ -202,7 +202,7 @@ Next we need to create a queue where Nextflow can submit jobs to the compute env
 
 Enter the name of the queue (this will be needed later in nextflow) and give it a priority. A priority of 1 means that jobs submitted to the compute environment via this queue will have priority over jobs submitted via a queue with a lower priority. This does not matter if you only have 1 queue using the compute environment but if you have multiple queues you can define their priorities. Finally in the dropdown box select the compute environment we created in the previous section and click **Create job queue**.
 
-![create job queue]({{ site.baseurl }}/assets/images/resources_img/nextflow_batch/029.PNG)  
+![create job queue]({{ site.baseurl }}/assets/resources_assets/nextflow_batch/029.PNG)  
 
 The combination of job queue's and compute environments allow for flexibility in how workflows use compute resources. If a step in your workflow needs access to high memory or GPUs then you can define a separate queue and compute environment for those steps specifically and define that in the Nextflow config.
 
