@@ -3,7 +3,7 @@ layout: home
 title: Home
 landing-title: null
 description: null
-image: assets/images/staphb-logo-circ.png
+image: assets/images/staphb_logo_white.png
 author: null
 show_tile: false
 ---
