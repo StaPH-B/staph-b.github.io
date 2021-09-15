@@ -38,11 +38,13 @@
               <div class="content">
                 <div class="inner">
                   <a href="{{ post.url  | relative_url }}" class="link">
-                    <h3>{{ post.date | date: '%B %Y' }} - {{ post.title }}</h3>
-                    {% if post.authors %}
-                    <h4>By: {{ post.authors }}</h4>
-                    {% endif %}
-                    <p>{{ post.description }}</p>
+                    <div>
+                      <h3>{{ post.date | date: '%B %Y' }} - {{ post.title }}</h3>
+                      {% if post.authors %}
+                      <h4>By: {{ post.authors }}</h4>
+                      {% endif %}
+                      <p>{{ post.description }}</p>
+                    </div>
                   </a>
                 </div>
               </div>
