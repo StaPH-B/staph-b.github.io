@@ -16,7 +16,7 @@
     > .inline {
       @include vendor('flex-direction', 'row' !important);
       > .content {
-        padding: 2em 3em 0.1em 6em;
+        padding: 2em 1em 0.1em 6em;
         width: 80%;
       }
 
