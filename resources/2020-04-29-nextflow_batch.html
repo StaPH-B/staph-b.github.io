@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<!--
+  Forty by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Setting Up Nextflow and AWS Batch | StaPH-B</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <script src="https://kit.fontawesome.com/b021ccefd1.js" crossorigin="anonymous"></script>
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+  <a href="/" class="logo"><strong>StaPH-B</strong> <span>State Public Health Bioinformatics Group</span></a>
+  <nav>
+    <a href="#menu">Menu</a>
+  </nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+  <ul class="links">
+        
+        
+    
+        
+    
+        
+            <li><a href="/">Home</a></li>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+    
+        
+    
+        
+            <li><a href="/about.html">About StaPH-B</a></li>
+        
+    
+        
+    
+        
+            <li><a href="/resources.html">Resources</a></li>
+        
+    
+        
+            <li><a href="/training.html">Training</a></li>
+        
+    
+        
+            <li><a href="/videos.html">Videos</a></li>
+        
+    
+  </ul>
+</nav>
+
+
+
+<!-- Main -->
+
+<div id="main" class="readable">
+
+<!-- One -->
+<section id="one">
+  <div class="inner">
+    <header class="major">
+      <h1>Setting Up Nextflow and AWS Batch</h1>
+      
+      <h4>By: Kelsey Florek</h4>
+      
+      <h4>April 29, 2020</h4>
+    </header>
+    
+    <p>Amazon Web Services Batch is a service that allows users to submit jobs to job queues while specifying the application to be run and compute resources that are needed by the job. Working in concert with Nextflow, AWS Batch can be configured to run Nextflow processes in defined compute environments minimizing the cost of cloud resources.</p>
+
+<h2 id="useful-resources">Useful Resources</h2>
+
+<p>This tutorial was written using <a href="https://apeltzer.github.io/post/01-aws-nfcore/">Alex Peltzer’s guide</a> and <a href="https://antunderwood.gitlab.io/bioinformant-blog/posts/running_nextflow_on_aws_batch/">Anthony Underwood’s guide</a> as resources. In addition there are several other resources that you might find helpful when setting this up.</p>
+<ul>
+  <li><a href="https://www.nextflow.io/blog/2017/scaling-with-aws-batch.html">Nextflow AWS Batch Blog Post</a></li>
+  <li><a href="https://www.nextflow.io/docs/latest/awscloud.html#aws-batch">Nextflow AWS Batch Documentation</a></li>
+  <li><a href="https://github.com/nextflow-io/awesome-nextflow#tutorials">List of Nextflow pipelines and Tutorial’s</a></li>
+  <li><a href="https://gitter.im/nextflow-io/nextflow">Nextflow Gitter Chat</a></li>
+</ul>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#step-1-setting-up-a-nextflow-user-with-iam">Step 1 Setting up a Nextflow user with IAM</a>
+    <ul>
+      <li><a href="#step-1.1-adding-a-programmatic-user">Step 1.1 Adding a programmatic user</a></li>
+      <li><a href="#step-1.2-create-a-user-group">Step 1.2 Create a user group</a></li>
+      <li><a href="#step-1.3-adding-metadata-tags">Step 1.3 Adding Metadata tags</a></li>
+      <li><a href="#step-1.4-obtain-secret-access-key">Step 1.4 Obtain Secret Access Key</a></li>
+      <li><a href="step-1.5-attach-access-policies-to-user-group">Step 1.5 Attach access policies to user group</a></li>
+      <li><a href="#step-1.6-create-permission-roles-for-running-aws-batch">Step 1.6 Create permission roles for running AWS Batch</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-2-building-a-custom-amazon-machine-image">Step 2 Building a custom Amazon Machine Image</a>
+    <ul>
+      <li><a href="#step-2.1-startup-the-base-ecs-image-in-a-virtual-machine">Step 2.1 Startup the base ECS image in a virtual machine</a></li>
+      <li><a href="#step-2.2-install-dependencies-for-nextflow">Step 2.2 Install dependencies for Nextflow</a></li>
+      <li><a href="#step-2.3-create-the-custom-ami">Step 2.3 Create the custom AMI</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-3-define-aws-batch-compute-environment">Step 3 Define AWS Batch compute environment</a>
+    <ul>
+      <li><a href="#step-3.1-select-compute-environment-name-and-permission-roles">Step 3.1 Select compute environment name and permission roles</a></li>
+      <li><a href="#step-3.2-define-compute-environment-resources">Step 3.2 Define compute environment resources</a></li>
+      <li><a href="#step-3.3-determine-compute-environment-limits">Step 3.3 Determine compute environment limits</a></li>
+      <li><a href="#Step-3.4-create-the-compute-environment">Step 3.4 Create the compute environment</a></li>
+      <li><a href="#step-3.5-update-the-ecsinstancerole">Step 3.5 Update the ecsInstanceRole</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-4-creating-an-aws-batch-job-queue">Step 4 Creating an AWS Batch Job queue</a></li>
+  <li><a href="#step-5-setting-up-an-s3-bucket-for-data-access">Step 5 Setting up an S3 Bucket for data access</a></li>
+  <li><a href="#step-6-configuring-nextflow-to-use-aws-batch">Step 6 Configuring Nextflow to use AWS Batch</a></li>
+  <li><a href="#tips-and-tricks">Tips and Tricks</a>
+    <ul>
+      <li><a href="#setting-up-an-ami-for-gpu-compute">Setting up an AMI for GPU compute</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="step-1-setting-up-a-nextflow-user-with-iam">Step 1 Setting up a Nextflow user with IAM</h2>
+<p>You may be tempted to skip this step if you already have a user with access to AWS. However, it is a best practice to have a separate programmatic user account that only has access to specifically designated credentials. This step is also valuable in understanding and setting up the access policies that both Nextflow and AWS Batch need in order to operate. This guide will give broad access to specific areas of AWS including S3, AWS Batch, and EC2. It is possible to create a more restricted user, however there is a number of additional steps to be sure the programmatic user has the correct access credentials. For the sake of complexity this guide only covers the broad approach.</p>
+
+<h4 id="step-11-adding-a-programmatic-user">Step 1.1 Adding a programmatic user</h4>
+<p>Navigate to the IAM Service and click on Users. Then click <strong>Add user</strong> and in the <strong>User name</strong> box add the user name that you would like, here I used <code class="language-plaintext highlighter-rouge">nextflow-programmatic-access</code>. Then select the box for <strong>Programmatic access</strong>. When you’ve finished click the <strong>Next: Permissions</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/001.PNG" alt="add user" /></p>
+
+<h4 id="step-12-create-a-user-group">Step 1.2 Create a user group</h4>
+<p>Next we need to create a group for this user to be a part of. We will later add policies to this group specific to Netflow. Click on the <strong>Create Group</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/002.PNG" alt="create group" /><br />
+In the <strong>Group name</strong> box add the name of the group here I used <code class="language-plaintext highlighter-rouge">nextflow-group</code>. Then click the <strong>Create group</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/003.PNG" alt="name group" /></p>
+
+<p>After adding the group click the <strong>Next: Tags</strong>.</p>
+
+<h4 id="step-13-adding-metadata-tags">Step 1.3 Adding Metadata tags</h4>
+<p>This page will allow you to add any extra tags to the account to assign metadata. These can be used for billing information or programmatic select but these are optional and not really necessary for function. After you’ve completed click <strong>Next: Review</strong>. Here you should be presented with a screen that looks similar to below. Click <strong>Create user</strong> to finish the user creation.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/004.PNG" alt="review screen" /></p>
+
+<h4 id="step-14-obtain-secret-access-key">Step 1.4 Obtain Secret Access Key</h4>
+<p>After user creation there will be a page that provides the security credentials for using the new Nextflow user. This includes the <strong>Access Key ID</strong> and <strong>Secret access key</strong>. These are crucial and are only generated once at this step. If they are lost you will have to delete and create a new user using the steps above. Click the <strong>Download .csv</strong> button and keep the file in a safe and secure location. These access credentials will be needed later.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/005.PNG" alt="user creation success" /></p>
+
+<h4 id="step-15-attach-access-policies-to-user-group">Step 1.5 Attach access policies to user group</h4>
+<p>From the IAM user panel click <strong>Groups</strong> and click on the nextflow group created above, here we used <code class="language-plaintext highlighter-rouge">nextflow-group</code>. Then click on the <strong>Attach Policy</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/007.PNG" alt="attach policy screen" /></p>
+
+<p>From here we will add the following 3 policies:</p>
+<ul>
+  <li><strong>AmazonEC2FullAccess</strong></li>
+  <li><strong>AmazonS3FullAccess</strong></li>
+  <li><strong>AWSBatchFullAccess</strong></li>
+</ul>
+
+<p>You can find these by typing them into the Filter box.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/011.PNG" alt="final roles" /></p>
+
+<h4 id="step-16-create-permission-roles-for-running-aws-batch">Step 1.6 Create permission roles for running AWS Batch</h4>
+<p>From the IAM user panel click the <strong>Roles</strong> button. Here we will create a role for running EC2 Spot Instances. If you would rather create on-demand instances only you can skip this step, however you can achieve significant cost savings using Spot Instances. Click the <strong>Create role</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/011a.PNG" alt="create role" /></p>
+
+<p>On the create role page scroll down and find and click on <strong>EC2</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/011b.PNG" alt="create role page" /><br />
+<img src="/assets/resources_assets/nextflow_batch/011c.PNG" alt="ec2 on role page" /></p>
+
+<p>Then select the <strong>EC2 - Spot Fleet Tagging</strong> use case and click the <strong>Next: Permissions</strong> button you should see the screen below.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/011d.PNG" alt="ec2 role" /></p>
+
+<p>Click the <strong>Next: Tags</strong> button add any additional metadata tags you would like then click the <strong>Next: Review</strong> button. Then fill out the <strong>Role name</strong> box with the name for this Role, here I used <code class="language-plaintext highlighter-rouge">AmazonEC2SpotFleetRole</code>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/011e.PNG" alt="create role final" /></p>
+
+<p>Once finished click the <strong>Create role</strong> button.</p>
+
+<h2 id="step-2-building-a-custom-amazon-machine-image">Step 2 Building a custom Amazon Machine Image</h2>
+<p>Amazon Machine Images or AMIs are used to create EC2 compute instances on AWS Cloud. In order to use Nextflow in combination with AWS Batch we will be using AWS’s Elastic Container Service (ECS). This allows Nextflow to use Docker containers as the running environment for the steps in the workflow. For this to work there are a few additional modifications that need to be made to the base ECS image. These modifications allow Nextflow to communicate with the running instances and shuttle data between S3 Buckets, your local work environment, and running instances. This image will be used for every AWS instance that is created by Nextflow. It is advisable to create a minimal set of AMIs as they are stored at $0.05 per GB-month. <em>Note that this is measured by the amount of data actually used not the size of the volume. So specifying a larger volume size doesn’t affect the overall price.</em> In reality the cost of storing AMIs is usually minimal (a few dollars a month) and can be tracked under the <strong>AWS Cost Management</strong>, <strong>Cost Explorer</strong>.</p>
+
+<h4 id="step-21-startup-the-base-ecs-image-in-a-virtual-machine">Step 2.1 Startup the base ECS image in a virtual machine</h4>
+<p>To create our custom AMI the first step is to startup a virtual machine running the base ECS image. To start goto the <strong>EC2</strong> Service in the AWS management console. Then click <strong>Instances</strong> and <strong>Launch Instance</strong>. To find the base ECS AMI, type <code class="language-plaintext highlighter-rouge">ECS</code> in the search box and select the <strong>Amazon ECS-Optimized Amazon Linux AMI</strong> image under the <strong>AWS Marketplace</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/012.PNG" alt="select ami" /></p>
+
+<p>A window will pop-up displaying the pricing information for using the AMI. Select <strong>Continue</strong>. The next step is to choose an instance type. Since we are creating this instance to customize the AMI we can select a small instance. Here I chose the t2.medium.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/014.PNG" alt="choose instance type" /></p>
+
+<p>The next step is configuring the instance details which can be configured to how you would normally set up an instance for interactive access. Here I use the default settings.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/015.PNG" alt="configure instance details" /></p>
+
+<p>In the add storage step we have an option to update the space available to the Docker container. By default the space is set to <strong>22 GB</strong>. This is the allowed space that can be used by docker on the image. Update the storage space for the needs of your pipeline. I choose to set it to <code class="language-plaintext highlighter-rouge">100</code> GB, which provides enough space for all the reads from a typical MiSeq run to fit in a single job with a bit of room to spare. You can change this to any amount you think is necessary for your pipeline.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/017.PNG" alt="add storage" /></p>
+
+<p>Once the instance storage is configured click the <strong>Next: Add Tags</strong> button and add the metadata tags you see fit. Once finished click the <strong>Next: Configure Security Group</strong>. Configure the instance so you can access it interactively. Once you have finished click the <strong>Review and Launch</strong>.</p>
+
+<h4 id="step-22-install-dependencies-for-nextflow">Step 2.2 Install dependencies for Nextflow</h4>
+<p>Once the instance is up an running login into the instance using the credentials you selected using the <code class="language-plaintext highlighter-rouge">ec2-user</code> account. Once logged in you should see a screen similar to below.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/018.PNG" alt="ec2-user login" /></p>
+
+<p>The first step is to adjust the size of the docker storage device to match the updated size. If you use the command <code class="language-plaintext highlighter-rouge">docker info</code> you’ll notice the <code class="language-plaintext highlighter-rouge">Base Device Size: 10.74GB</code>. We need to update this by editing the docker configuration file in <code class="language-plaintext highlighter-rouge">/etc/sysconfig/docker-storage</code>. Using <code class="language-plaintext highlighter-rouge">sudo vi</code> open the file and add <code class="language-plaintext highlighter-rouge">--storage-opt dm.basesize=100GB</code> adjusting the 100GB to reflect the size you picked above. The file should look something like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DOCKER_STORAGE_OPTIONS="--storage-driver devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-docker--pool --storage-opt dm.use_deferred_removal=true --storage-opt dm.use_deferred_deletion=true --storage-opt dm.fs=ext4 --storage-opt dm.use_deferred_deletion=true --storage-opt dm.basesize=100GB"
+</code></pre></div></div>
+<p>To verify the changes use the command <code class="language-plaintext highlighter-rouge">sudo service docker restart</code> and see the changes with <code class="language-plaintext highlighter-rouge">docker info</code>.</p>
+
+<p>After configuring docker the next step is to install AWS-CLI. This is needed by Nextflow to send data from each step. The easiest way is to install via miniconda with the commands below:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -p /home/ec2-user/miniconda
+/home/ec2-user/miniconda/bin/conda install -c conda-forge awscli
+/home/ec2-user/miniconda/bin/aws --version
+</code></pre></div></div>
+
+<h4 id="step-23-create-the-custom-ami">Step 2.3 Create the custom AMI</h4>
+<p>Once AWS-CLI is installed you can save the image by choosing <strong>Action Image -&gt; Create Image</strong> on the selected image. Give the image an appropriate name and when it has finished creating the image you can terminate the instance. Make note of the AMI <code class="language-plaintext highlighter-rouge">ami-01dec29g8b4d78253</code> this will be used later.</p>
+
+<h2 id="step-3-define-aws-batch-compute-environment">Step 3 Define AWS Batch compute environment</h2>
+<p>AWS Batch is made of two parts a queue where jobs are submitted and a compute environment, which defines what type of instances are used to run those jobs. Nextflow submits jobs to a specific AWS queue (defined in the Nextflow config file) allowing AWS Batch to handle the rest. To set this up go to the Batch service in the AWS management console. If this is your first time using batch you will see a screen like below. Click the <strong>Get Started</strong> button.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/021.PNG" alt="get started" /></p>
+
+<p>You will then see the setup wizard for AWS Batch. The wizard doesn’t setup things the way we need so we will select the <strong>Skip wizard</strong> button shown below.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/022.PNG" alt="skip wizard" /></p>
+
+<h4 id="step-31-select-compute-environment-name-and-permission-roles">Step 3.1 Select compute environment name and permission roles</h4>
+
+<p>Once you are at the AWS Batch dashboard select <strong>Compute environments</strong> and <strong>Create environment</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/023.PNG" alt="batch dashboard" /></p>
+
+<p>Then select the box for <strong>Managed</strong> in the compute environment type if not already selected and enter a name in the <strong>Compute environment name</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/024.PNG" alt="create compute start" /></p>
+
+<p>Next select <strong>Create new role</strong> for both <strong>Service role</strong> and <strong>Instance role</strong>. AWS Batch will create roles with the needed permissions. However, we will need to add an additional policy to the <strong>ecsInstanceRole</strong> later to use AWS S3. You may select an EC2 key pair to be able to ssh into the instance but this is optional.</p>
+
+<h4 id="step-32-define-compute-environment-resources">Step 3.2 Define compute environment resources</h4>
+<p>Here we can define if we want to use On-Demand or Spot. If using On-Demand simply select <strong>On-Demand</strong> in the <strong>Provisioning model</strong> and define the <strong>Allowed instance types</strong> with instance types you wish to use i.e. <strong>c4.xlarge</strong> or <strong>c5.4xlarge</strong>. Set <strong>Allocation strategy</strong> to <strong>BEST_FIT</strong> and continue on to Step 3. <em>Note if you want jobs to be spread across multiple instances it is better to select smaller instances than larger. The best fit model for both on-demand and spot will tend to group multiple jobs into 1 larger instance. This can reduce cost but lead to issues with data storage space if too many jobs are put on a single instance.</em></p>
+
+<p>If you would like to use Spot instances, which can be run at a fraction of the price of the on-demand instances. Under <strong>Provisioning model</strong> select <strong>Spot</strong>. Then set the <strong>Maximum Price</strong> valued by the % of the On-demand price. Here I picked 70%, which seems to work well. You could also select 100% which means you are willing to go all the way to the On-demand price but if there is a lower price available you’ll still get it. <em>Note if this value is set too low you may not get spot instances when demand is higher</em>.</p>
+
+<p>Then under the <strong>Allocation strategy</strong> select <strong>BEST_FIT</strong> and choose the <strong>AmazonEC2SpotFleetRole</strong> we created earlier. Finally under the <strong>Allowed instance types</strong> select instance types you wish to use i.e. <strong>c4.xlarge</strong> or <strong>c5.4xlarge</strong>. I usually use the c4 and c5 family of instance types but this should be tailored to your workflow.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/024a.PNG" alt="define compute" /></p>
+
+<h4 id="step-33-determine-compute-environment-limits">Step 3.3 Determine compute environment limits</h4>
+<p>Next you will see 3 options including <strong>Minimum vCPUs</strong>, <strong>Desired vCPUs</strong>, and <strong>Maximum vCPUs</strong>. These are used to define the amount of resources that can be used. <strong>Note</strong>: the values are vCPUs not number of instances, so if you only allow instances with 16 vCPUs to be used in your compute environment and you set the minimum vCPUs to 1. You will always have a 16vCPU instance running. The values are further defined as:</p>
+<ul>
+  <li>
+    <p><strong>Minimum vCPUs</strong> - The minimum number of virtual resources that must be kept running at all times. Setting this to 0 means all resources will be shutdown when not in use. 0 is recommended for cost savings.</p>
+  </li>
+  <li>
+    <p><strong>Desired vCPUs</strong> - This is how many vCPUs you would like to see used. Nextflow will dynamically change this value so we can leave it set to 0.</p>
+  </li>
+  <li>
+    <p><strong>Maximum vCPUs</strong> - This is the maximum number of vCPUs that could be running at any one time. I typically leave this set to <code class="language-plaintext highlighter-rouge">256</code> but you can alter it as you see fit.</p>
+  </li>
+</ul>
+
+<p>Finally we need to select the AMI we created in the previous section. Check the box for <strong>Enable user-specified AMI id</strong> and enter the AMI from above then click <strong>Validate AMI</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/026.PNG" alt="resource limits" /></p>
+
+<h4 id="step-34-create-the-compute-environment">Step 3.4 Create the compute environment</h4>
+<p>At the last step, define the subnet you would like your instances to run on (usually just default) and security group then click <strong>Create</strong></p>
+
+<h4 id="step-35-update-the-ecsinstancerole">Step 3.5 Update the ecsInstanceRole</h4>
+<p>AWS Batch just created the <strong>ecsInstanceRole</strong> for us but we need to add the S3 role to allow access to data stored in S3 buckets. Go to the IAM service as done in Step 6 in the <a href="#Setting-up-a-Nextflow-User">Setting up a programmatic user with IAM</a> section. Under <strong>Roles</strong> enter <code class="language-plaintext highlighter-rouge">ecs</code> in the search box and click on the <strong>ecsInstanceRole</strong>. Click the <strong>Attach policies</strong> and enter <code class="language-plaintext highlighter-rouge">S3</code> in the filter box and select the <strong>AmazonS3FullAccess</strong>, then click <strong>Attach policy</strong>.</p>
+
+<p>You should have both the <strong>AmazonS3FullAccess</strong> and the <strong>AmazonEC2ContainerServiceforEC2Role</strong> policies attached to this role.</p>
+
+<h2 id="step-4-creating-an-aws-batch-job-queue">Step 4 Creating an AWS Batch Job queue</h2>
+<p>Next we need to create a queue where Nextflow can submit jobs to the compute environment. Navigate to the Batch service on the AWS management console and select <strong>Job queues</strong> and <strong>Create queue</strong>.</p>
+
+<p>Enter the name of the queue (this will be needed later in nextflow) and give it a priority. A priority of 1 means that jobs submitted to the compute environment via this queue will have priority over jobs submitted via a queue with a lower priority. This does not matter if you only have 1 queue using the compute environment but if you have multiple queues you can define their priorities. Finally in the dropdown box select the compute environment we created in the previous section and click <strong>Create job queue</strong>.</p>
+
+<p><img src="/assets/resources_assets/nextflow_batch/029.PNG" alt="create job queue" /></p>
+
+<p>The combination of job queue’s and compute environments allow for flexibility in how workflows use compute resources. If a step in your workflow needs access to high memory or GPUs then you can define a separate queue and compute environment for those steps specifically and define that in the Nextflow config.</p>
+
+<h2 id="step-5-setting-up-an-s3-bucket-for-data-access">Step 5 Setting up an S3 Bucket for data access</h2>
+<p>Nextflow can use S3 buckets to store and access data. Go to the <strong>S3</strong> service under the AWS management console and select <strong>Create bucket</strong>. Name the bucket (will be used in the nextflow configuration) and select the appropriate region where you have configured everything else and select <strong>Create bucket</strong>. In the bucket create a folder <code class="language-plaintext highlighter-rouge">test_env</code> where Nextflow can work with files.</p>
+
+<h2 id="step-6-configuring-nextflow-to-use-aws-batch">Step 6 Configuring Nextflow to use AWS Batch</h2>
+<p>In the final section of the guide there are a few parameters that need to be added to the Nextflow config in order to use the AWS Batch environment we created. There are a number of configuration variables that can be set (<a href="https://www.nextflow.io/docs/latest/awscloud.html#awscloud-batch-config">more here</a>) but the basics are:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//indicate that we want to use awsbatch
+process.executor = 'awsbatch'
+
+//indicate the name of the AWS Batch job queue we want to use
+process.queue = 'my-batch-queue'
+
+//Name of the docker container we want to use, we can also specify a separate docker container for each process
+process.container = 'quay.io/biocontainers/salmon'
+
+//region where we want to run this in
+aws.region = 'us-east-1'
+
+//Important note!!! Since we created a custom AMI
+//we need to specify the path to the aws cli tool
+//if you followed the instructions above for custom AMI
+//the path is:
+aws.batch.cliPath = '/home/ec2-user/miniconda/bin/aws'
+
+//Additionally if we want to use S3 to hold intermediate files we can specify the work directory
+workDir = 's3://bucket_you_created/test_env/'
+</code></pre></div></div>
+
+<p>Finally, the last step is to setup your AWS-CLI and AWS user credentials. The easiest method is using conda, which can be installed on your host system following the same steps we used for the AMI:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -p /home/ec2-user/miniconda
+/home/ec2-user/miniconda/bin/conda install -c conda-forge awscli
+/home/ec2-user/miniconda/bin/aws --version
+</code></pre></div></div>
+<p>In <a href="#step-1-setting-up-a-nextflow-user-with-iam">Step 1 Setting up a Nextflow user with IAM</a> we created a user that would be able to access the AWS services and launch jobs. The <strong>best approach</strong> to give Nextflow access to our programmatic user is to use the command <code class="language-plaintext highlighter-rouge">aws configure</code> and enter the security credentials. After setting these configuration parameters your Nextflow workflow is ready to use AWS Batch!!</p>
+
+<p>Another (<strong>not recommended</strong>) option is to include the credentials in the configuration however, this should not be used as the keys could be made accidentally public if you share your configuration file:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws {
+    accessKey = '&lt;YOUR S3 ACCESS KEY&gt;'
+    secretKey = '&lt;YOUR S3 SECRET KEY&gt;'
+    region = '&lt;REGION IDENTIFIER&gt;'
+}
+</code></pre></div></div>
+<h2 id="tips-and-tricks">Tips and Tricks</h2>
+<p>AWS can be tricky to navigate if things aren’t working. Here are some various places you can look if things aren’t going as expected.</p>
+
+<p>The biggest issue I’ve seen is jobs sitting in the <strong>RUNNABLE</strong> step in the AWS Batch Job queues and not moving to <strong>STARTING</strong> or <strong>RUNNING</strong>. This can be cause by a number of issues but it’s best to first check the roles and policies created above. Here are the roles and polices you should have:</p>
+
+<p><strong>Roles and respective policies for AWS Batch</strong></p>
+
+<ul>
+  <li>AmazonEC2SpotFleetRole
+    <ul>
+      <li>AmazonEC2SpotFleetTaggingRole</li>
+    </ul>
+  </li>
+  <li>ecsInstanceRole
+    <ul>
+      <li>AmazonS3FullAccess</li>
+      <li>AmazonEC2ContainerServiceforEC2Role</li>
+    </ul>
+  </li>
+  <li>AWSBatchServiceRole
+    <ul>
+      <li>AWSBatchServiceRole</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Additionally, sometimes the jobs will move from <strong>RUNNABLE</strong> to <strong>FAILED</strong>. Clicking the number of jobs in the <strong>FAILED</strong> column will reveal the individual jobs and clicking on one might show the error message that caused it to fail via CloudWatch. That can often help diagnose issues in the compute environment.</p>
+
+<p>Another location you may find error messages is under the EC2 service:</p>
+<ul>
+  <li>If you are running On-Demand in the <strong>Launch Configurations</strong> under the EC2 service will show the configurations launched by AWS Batch and any potential issues or errors encountered.</li>
+  <li>If you are running Spot instances examining the <strong>Spot Requests</strong> is a good place to look for errors as well.
+h</li>
+</ul>
+
+<h4 id="setting-up-an-ami-for-gpu-compute">Setting up an AMI for GPU compute</h4>
+<p>The AMI setup above does not include the necessary dependencies for using Nvidia GPU compute resources. To use docker with a GPU resource, the base AMI needs to have the <code class="language-plaintext highlighter-rouge">nvidia-docker</code> library installed along with the correct GPU drivers. To build this AMI start by performing the same steps outlines in <a href="#step-2-building-a-custom-amazon-machine-image">Step 2 Building a custom Amazon Machine Image</a>, with one notable difference. When specifying the size of the volume used by docker keep in mind the size of the data used. If you are setting up an AMI for working with fast5 data you’ll need significantly more space. In my experience 300GB seems to work well.</p>
+
+<p>After installing the dependencies in <a href="#step-2.2-install-dependencies-for-nextflow">Step 2.2 Install dependencies for Nextflow</a>. You will need to install <code class="language-plaintext highlighter-rouge">nvidia-docker</code> by following these steps:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+yum update
+sudo yum install -y nvidia-docker2
+</code></pre></div></div>
+
+<p>Then install the appropriate GPU drivers. Here are the instructions for installing the <code class="language-plaintext highlighter-rouge">v440.64</code> drivers for the Nvidia Tesla V100:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum install gcc, make, kernel-devel
+curl http://us.download.nvidia.com/tesla/440.64.00/NVIDIA-Linux-x86_64-440.64.00.run -o NVIDIA-Linux-x86_64-440.64.00.run
+sudo bash NVIDIA-Linux-x86_64-440.64.00.run
+</code></pre></div></div>
+<p>Once installed use <code class="language-plaintext highlighter-rouge">nvidia-smi</code> to test that the drives have been installed. If they are you should see the correct device and driver listed.</p>
+
+<p>The last step is to enable the nvidia runtime for the docker environment. Usually this is done by using the <code class="language-plaintext highlighter-rouge">--runtime=nvidia</code> when starting containers using the <code class="language-plaintext highlighter-rouge">docker run</code> command. However, with Nextflow the runtime must be specified in the docker daemon configuration. Open the configuration file using <code class="language-plaintext highlighter-rouge">sudo vi /etc/docker/daemon.json</code> and edit the configuration file as below:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+    "default-runtime":"nvidia"
+}
+</code></pre></div></div>
+
+<p>Once finished follow <a href="#step-2.3-create-the-custom-ami">Step 2.3 Create the custom AMI</a> and setup a compute environment using the new AMI!</p>
+
+  </div>
+</section>
+
+</div>
+
+    <!-- Footer -->
+  <footer id="footer">
+    <div class="inner">
+      <ul class="icons">
+        
+          
+            <li>
+              <a href="https://github.com/StaPH-B" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <span class="label">GitHub</span>
+              </a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li>
+              <a href="https://join.slack.com/t/staph-b-dev/shared_invite/zt-w4ivhtq9-2XypNGWXY9vmyeWf0lABng" class="icon alt fa-slack" target="_blank" rel="noopener noreferrer" aria-label="Slack">
+                <span class="label">Slack</span>
+              </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://www.youtube.com/channel/UC4GughelEJxkJORLTCd51eg" class="icon alt fa-youtube" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+                <span class="label">youtube</span>
+              </a>
+            </li>
+          
+        
+      </ul>
+      <ul class="copyright">
+        <li>&copy; StaPH-B State Public Health Bioinformatics Group</li>
+        <li>Built from the <a href="https://github.com/andrewbanchich/forty-jekyll-theme" target="_blank">forty-jekyll-theme</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Scripts -->
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/jquery.scrolly.min.js"></script>
+  <script src="/assets/js/jquery.scrollex.min.js"></script>
+  <script src="/assets/js/skel.min.js"></script>
+  <script src="/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

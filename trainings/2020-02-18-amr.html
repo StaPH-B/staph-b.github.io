@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<!--
+  Forty by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>AMR Detection Using NGS | StaPH-B</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <script src="https://kit.fontawesome.com/b021ccefd1.js" crossorigin="anonymous"></script>
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+  <a href="/" class="logo"><strong>StaPH-B</strong> <span>State Public Health Bioinformatics Group</span></a>
+  <nav>
+    <a href="#menu">Menu</a>
+  </nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+  <ul class="links">
+        
+        
+    
+        
+    
+        
+            <li><a href="/">Home</a></li>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+    
+        
+    
+        
+            <li><a href="/about.html">About StaPH-B</a></li>
+        
+    
+        
+    
+        
+            <li><a href="/resources.html">Resources</a></li>
+        
+    
+        
+            <li><a href="/training.html">Training</a></li>
+        
+    
+        
+            <li><a href="/videos.html">Videos</a></li>
+        
+    
+  </ul>
+</nav>
+
+
+
+<!-- Main -->
+
+<div id="main" class="readable">
+
+<!-- One -->
+<section id="one">
+  <div class="inner">
+    <header class="major">
+      <h1>AMR Detection Using NGS</h1>
+      
+      <h4>By: Joel Sevinsky</h4>
+      
+      <h4>February 18, 2020</h4>
+    </header>
+    
+    <h5 id="demystifying-webinar-series">Demystifying Webinar Series</h5>
+
+<p>For our February 2020 webinar, we discuss how bacterial species identification is conducted using NGS data. This webinar will examine the different algorithms and databases used for AMR detection, with an emphasis on CGE’s ResFinder and NCBI’s AMRFinderPlus. Upon completion of the webinar, attendees will 1) understand the algorithms behind AMR detection using NGS, 2) the difference between gene based and mutational resistance, and 3) the advantages and limitations of these methods compared to traditional phenotypic testing.</p>
+
+<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/JibS7W2YW8k?autoplay=0" frameborder="0">
+</iframe>
+
+<p><a href="/assets/trainings_assets/AMR_webinar_February_2020_MTN_Region.pdf">Click here for slides for MTN Region webinar</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=cuugt5F9Ef4">Click here for the webinar given to the NE Region.</a></p>
+
+<h5 id="resources">Resources</h5>
+
+<p>A great reference that I read in preparation for this webinar was “Sequencing-based methods and resources to study antimicrobial resistance” from Nat Rev Genet. 2019 Jun;20(6):356-370. This reference can be found in the attached <a href="https://paperpile.com/shared/BbQJT2">Paperpile library</a>. The article discusses not only the background on the mechanisms of antimicrobial resistance, but does a thorough job of highlighting many of the resources currentlly availabe. I have adapted two tables from this article and repoduced them below. The first table here lists many of the reference databases used for sequence-based AMR detection:</p>
+
+<div>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQZ_h3SMvdq6sqEosa6MZEgIhifl162AYJT0A9Z1yTSQc_qi8n4EcnsQqtOTvX64EIWhTiOwtkOol7t/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="600"></iframe>
+</div>
+
+<p>This second table highlights many of the sequencing-based tools for identifying genetic determinants of AMR:</p>
+
+<div>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTDNEPMs1o9L_vtvEbYWc9v--kqWIZLaSpm4OkygUdqbe4LtdCPnF4PjYrZUzLWTkkqqef5mLGMXT1e/pubhtml?widget=true&amp;headers=false" width="100%" height="600"></iframe>
+</div>
+
+<p>One tool discussed during the webinar was <a href="https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/">AMRFinderPlus</a>. This tool is used in the <a href="https://www.ncbi.nlm.nih.gov/pathogens">NCBI Pathogen Detection Pipeline</a> and the results are displayed in the <a href="https://www.ncbi.nlm.nih.gov/pathogens/isolates/#/search/">NCBI Isolate Browser</a>. AMRFinderPluse uses data from the <a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA313047">Bacterial Antimicrobial Resistance Reference Gene Database</a> to identify AMR determininants. This database contains over 5,000 genes. I have taken this refrence gene databaes and imported it into Tableau so we can have an interactive look at the contents of this database. The Tableau file is posted on Tableau Public and is embedded below:</p>
+
+<div>
+<div class="tableauPlaceholder" id="viz1582044648633" style="position: relative"><noscript><a href="#"><img alt=" " src="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Re&#47;ReferenceGeneCatalog_2020-01-22_1&#47;Table&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" /> <param name="embed_code_version" value="3" /> <param name="site_root" value="" /><param name="name" value="ReferenceGeneCatalog_2020-01-22_1&#47;Table" /><param name="tabs" value="yes" /><param name="toolbar" value="yes" /><param name="static_image" value="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Re&#47;ReferenceGeneCatalog_2020-01-22_1&#47;Table&#47;1.png" /> <param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div>                <script type="text/javascript">                    var divElement = document.getElementById('viz1582044648633');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+</div>
+
+<p><a href="https://github.com/tseemann/abricate">ABRicate</a> was another tool discussed which is common in many public health bioinfromatics workflows. ABRicate was designed to screen assembled contigs from NGS data against multiple databases of antimicribial reistance, virulence, and plasmid genes. ABRicate uses both the ResFinder and AMRFinderPluse databases above (but only nucleotide searches), as well as the following databases:</p>
+<ul>
+  <li><a href="https://www.ncbi.nlm.nih.gov/pubmed/24145532">ARG-ANNOT</a></li>
+  <li><a href="https://card.mcmaster.ca/">CARD</a></li>
+  <li><a href="https://github.com/katholt/srst2/tree/master/data">EcOH</a></li>
+  <li><a href="https://cge.cbs.dtu.dk/services/PlasmidFinder/">PlasmidFinder</a></li>
+  <li><a href="http://www.mgc.ac.cn/VFs/main.htm">VFDB</a></li>
+  <li><a href="https://github.com/phac-nml/ecoli_vf">Ecoli_VF</a></li>
+</ul>
+
+<p>The <a href="http://www.genomicepidemiology.org/">Center for Genomic Epidemiology</a> is home to serveral tools for genotyping and phenotyping human pathogens, including <a href="https://cge.cbs.dtu.dk/services/ResFinder/">ResFinder</a>.</p>
+
+<h5 id="references">References</h5>
+
+<p>References used for the preparation of the webinar and cited in the presentation can be found in this <a href="https://paperpile.com/shared/BbQJT2">Paperpile library</a>.</p>
+
+  </div>
+</section>
+
+</div>
+
+    <!-- Footer -->
+  <footer id="footer">
+    <div class="inner">
+      <ul class="icons">
+        
+          
+            <li>
+              <a href="https://github.com/StaPH-B" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <span class="label">GitHub</span>
+              </a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li>
+              <a href="https://join.slack.com/t/staph-b-dev/shared_invite/zt-w4ivhtq9-2XypNGWXY9vmyeWf0lABng" class="icon alt fa-slack" target="_blank" rel="noopener noreferrer" aria-label="Slack">
+                <span class="label">Slack</span>
+              </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://www.youtube.com/channel/UC4GughelEJxkJORLTCd51eg" class="icon alt fa-youtube" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+                <span class="label">youtube</span>
+              </a>
+            </li>
+          
+        
+      </ul>
+      <ul class="copyright">
+        <li>&copy; StaPH-B State Public Health Bioinformatics Group</li>
+        <li>Built from the <a href="https://github.com/andrewbanchich/forty-jekyll-theme" target="_blank">forty-jekyll-theme</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Scripts -->
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/jquery.scrolly.min.js"></script>
+  <script src="/assets/js/jquery.scrollex.min.js"></script>
+  <script src="/assets/js/skel.min.js"></script>
+  <script src="/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

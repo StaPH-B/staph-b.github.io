@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<!--
+  Forty by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>NE Region SARS-CoV-2 Training | StaPH-B</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <script src="https://kit.fontawesome.com/b021ccefd1.js" crossorigin="anonymous"></script>
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header">
+  <a href="/" class="logo"><strong>StaPH-B</strong> <span>State Public Health Bioinformatics Group</span></a>
+  <nav>
+    <a href="#menu">Menu</a>
+  </nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+  <ul class="links">
+        
+        
+    
+        
+    
+        
+            <li><a href="/">Home</a></li>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+    
+        
+    
+        
+            <li><a href="/about.html">About StaPH-B</a></li>
+        
+    
+        
+    
+        
+            <li><a href="/resources.html">Resources</a></li>
+        
+    
+        
+            <li><a href="/training.html">Training</a></li>
+        
+    
+        
+            <li><a href="/videos.html">Videos</a></li>
+        
+    
+  </ul>
+</nav>
+
+
+
+<!-- Main -->
+
+<div id="main" class="readable">
+
+<!-- One -->
+<section id="one">
+  <div class="inner">
+    <header class="major">
+      <h1>NE Region SARS-CoV-2 Training</h1>
+      
+      <h4>By: Joel Sevinsky</h4>
+      
+      <h4>September 01, 2020</h4>
+    </header>
+    
+    <h3 id="training-prerequisites">Training Prerequisites</h3>
+<p>In order for this training to be effective for all students participating, each student should perform the following before the first class:</p>
+<ol>
+  <li>Confirm that they can connect to their VM.</li>
+  <li>Watch a 75 minute video on the linux operating system.</li>
+  <li>Watch a short video on tmux, a linux application that allows for multiple terminals.</li>
+</ol>
+
+<h6 id="connect-to-your-vm"><em>Connect to your VM</em></h6>
+
+<p>In the slack channel will be listed your VM IP address, along with a ssh key file. This information will be posted on Monday, June 29th. In order to connect to this VM, you will need to download the terminal program MobaXterm. MobaXterm can be downloaded from <a href="https://mobaxterm.mobatek.net/download-home-edition.html">https://mobaxterm.mobatek.net/download-home-edition.html</a>. IMPORTANT: Please download the “Portable edition”, not the “Installer edition”. The “Portable edition” will allow you to run the application without installing it, thus no admin rights needed. Once you have downloaded MobaXterm and have access to your IP address and ssh key, watch the youtube video on <a href="https://youtu.be/CWEA86aRkg8">How to Connect to Your VM</a>. I will also post the username and passphrase in slack.</p>
+
+<h6 id="linux-video"><em>Linux video</em></h6>
+
+<p>The video link is <a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag">https://www.youtube.com/watch?v=oxuRxtrO2Ag</a>. This video will give you a basic understanding of navigating around the bash terminal in linux. It is well worth the 75 minutes before the course, working within your own VM.</p>
+
+<h6 id="tmux-video"><em>Tmux video</em></h6>
+
+<p>Many of the processes we will be running will require long processing times that could be interrupted by network connection issues. To avoid this, we will perform the exercises in the class using the tmux application. This <a href="https://youtu.be/BHhA_ZKjyxo">tmux tutorial video</a> will guide you through the process of using tmux.</p>
+
+<p>Some additional resources that you will find useful when starting out are:</p>
+
+<ul>
+  <li><a href="https://fossbytes.com/a-z-list-linux-command-line-reference/">Linux command reference</a></li>
+  <li><a href="https://tmuxcheatsheet.com/">tmux cheat sheet</a></li>
+</ul>
+
+<h3 id="agenda-overview">Agenda Overview</h3>
+
+<p><em><strong>Session 1 - Background on Viral Genomics and Coronaviruses</strong></em>  - Tuesday, Sept 8th, 12 PM and 3 PM EDT <br />
+<em><strong>Session 2 - Sequencing Methods for SARS-CoV-2</strong></em> - Wednesday, Sept 9th, 11 AM and 2 PM EDT <br />
+<em><strong>Session 3 - Linux</strong></em> - Friday, Sept 11th, 11 AM and 2 PM EDT <br />
+<em><strong>Session 4 - StaPH-B Toolkit and Cecret</strong></em> - Monday Sept 14th, 11 AM and 2 PM EDT <br />
+<em><strong>Session 5 - Terra.bio</strong></em> - Wednesday Sept 16th, 11 AM and 2 PM EDT<br />
+<em><strong>Session 6 - Terra.bio</strong></em> - Friday Sept 18th, 11 AM and 2 PM EDT <br />
+<em><strong>Session 7 - NGS Data Visualization for QC of Results</strong></em> - Monday Sept 21st, 11 AM and 2 PM EDT<br />
+<em><strong>Session 8 - Data Sharing with GISAID and NCBI SRA</strong></em> - Wednesday Sept 23rd, 11 AM and 2 PM EDT<br />
+<em><strong>Session 9 - Data Sharing with NCBI Genbank</strong></em> - Friday Sept 25th, 11 AM and 2 PM EDT</p>
+
+<p>Office hours will be offered each week on Tuesday from 2 PM to 4 PM EDT and on Thursday from 12 PM to 2 PM EDT, and by request.</p>
+
+<p><em><strong>Session 1 - Background on Viral Genomics and Coronaviruses</strong></em></p>
+
+<p><strong><a href="https://youtu.be/smCB4QRRw3M">Recording for Session 1 - 12 PM EDT</a></strong></p>
+
+<ul>
+  <li>Register for a <a href="https://www.gisaid.org/registration/register/">GISAID</a> account</li>
+  <li>Viral genomics primer</li>
+  <li>Considerations of bacteria vs viral pathogens</li>
+  <li>Coronavirus, the new flu.</li>
+  <li><a href="https://paperpile.com/shared/dU0ZnG">Papers on Coronaviruses</a></li>
+</ul>
+
+<p><em><strong>Session 2 - <a href="https://github.com/CDCgov/SARS-CoV-2_Sequencing">Sequencing Methods for SARS-CoV-2</a></strong></em></p>
+
+<p><strong><a href="https://youtu.be/QawI3oXmKMo">Recording for Session 2 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/ffrTOpWNb-s">Recording for Session 2 - 2 PM EDT</a></strong></p>
+
+<ul>
+  <li>Metagenomics, enrichment, amplicon</li>
+  <li>The <a href="https://artic.network/ncov-2019">ARTIC</a> protocol</li>
+  <li><a href="https://www.protocols.io/view/sars-cov-2-sequencing-on-illumina-miseq-using-arti-bfefjjbn">ARTIC + Illumina DNA Flex - Part 1</a> at protocols.io.</li>
+  <li><a href="https://www.protocols.io/view/sars-cov-2-sequencing-on-illumina-miseq-using-arti-bffyjjpw">ARTIC + Illumina DNA Flex - Part 2</a> at protocols.io.</li>
+</ul>
+
+<p><em><strong>Session 3 - Linux</strong></em></p>
+
+<p><strong><a href="https://youtu.be/4LSiFbaug50">Recording for Session 3 - 11 AM EDT</a></strong></p>
+
+<ul>
+  <li>Linux basics</li>
+  <li>Working in Tmux
+    <ul>
+      <li><a href="https://tmuxcheatsheet.com/">Tmux Cheat Sheet</a></li>
+      <li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag">Tmux Video</a></li>
+    </ul>
+  </li>
+  <li>Connecting to Basespace
+    <ul>
+      <li><a href="https://developer.basespace.illumina.com/docs/content/documentation/cli/cli-overview">Basespace CLI</a></li>
+    </ul>
+  </li>
+  <li>Connecting to cloud resources
+    <ul>
+      <li><a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a></li>
+    </ul>
+  </li>
+  <li>Transferring data to your VM for the class</li>
+</ul>
+
+<p><strong>Commands used in this session</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***bash commands***
+
+dir                           #lists out a directory
+ls                            #also lists out a directory
+ls -la                        #lists out a directroy with details
+ll                            #alias for ls -la
+cd &lt;directory&gt;                #change directory
+cd                            #will bring you to your home directory
+mkdir &lt;dir&gt;                   #make directory
+rmdir &lt;dir&gt;                   #remove directory if it is empty
+rm -rf &lt;dir&gt;                  #remove directory if it is full
+gzip &lt;name.fastq&gt;             #zip a read file
+
+***tmux***
+
+tmux ls                       #list open tmux sessions
+tmux new -s &lt;name&gt;            #start a tmux session called &lt;name&gt;
+tmux a -t &lt;name&gt;              #attach to tmux session called &lt;name&gt;
+tmux kill-session -t &lt;name&gt;   #kill tmux session called &lt;name&gt;
+Ctrl-b ,                      #rename current window
+Ctrl-b c                      #create new window
+Ctrl-b n                      #go to next window
+tmux info                     #help
+
+***basespace cli***
+
+bs auth                                   #authenticate to Basespace
+bs list projects                          #list projects in basespace
+bs download project -n &lt;name&gt; -o &lt;dir&gt;    #download project files to &lt;dir&gt;
+
+***gsutils***
+
+gsutil ls                                 #list storage buckets
+gsutil cp &lt;source&gt; &lt;destination&gt;          #cp data from storage bucket
+
+***sra-toolkit*** - might need to "sudo apt-get install sra-toolkit"
+
+prefetch &lt;sra_id&gt;
+fastq-dump --split-files --gzip &lt;sra_id&gt;
+</code></pre></div></div>
+
+<p><em><strong>Session 4 - StaPH-B Toolkit - Monroe</strong></em></p>
+
+<p><strong><a href="https://youtu.be/wUPaF9id3oo">Recording for Session 4 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/bC9sZccWwBc">Recording for Session 4 - 2 PM EDT</a></strong></p>
+
+<ul>
+  <li>Monroe pipeline</li>
+  <li>pe_assembly</li>
+  <li>cluster_analysis</li>
+</ul>
+
+<p><a href="https://staph-b.github.io/staphb_toolkit/workflow_docs/monroe/">Documentation on Monroe</a></p>
+
+<p>Some commands to make today’s session easier</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***Configure Cecret***
+
+tmux new -s session4	#starts a new tmux session if you don't have one already
+
+cd	#moves you to your home directory
+
+rm -rf Cecret/	#removes old Cecret installation
+
+git clone https://github.com/UPHL-BioNGS/Cecret.git	#clones new Cecret
+
+cd &lt;workspace&gt;	#move to workspace directory
+
+***let's copy over some files
+
+gsutil ls
+gsutil ls gs://mtn-class-bucket/
+gsutil -m cp gs://mtn-class-bucket/cecret.tar .
+gsutil -m cp gs://mtn-class-bucket/monroe.tar .
+gsutil -m cp gs://mtn-class-bucket/Cecret.nf .
+
+***move the Cecret.nf folder to the Cecret location***
+
+mv Cecret.nf ~/Cecret/   
+
+***unwrap tar files***
+
+tar -xvf cecret.tar
+tar -xvf monroe.tar
+
+mkdir cecret_live
+mkdir monroe_live
+
+cd monroe
+cp 20-07-01_* ../monroe_live/
+cp -r reads/ ../monroe_live/   #you can use optional SRA method at the end to copy into a reads folder
+cd ..
+cd monroe_live
+
+staphb-wf monroe pe_assembly --primers V3 --output pe_assembly_1 --config 20-07-01_pe_assembly.config reads
+
+***Before we launch cluster_analysis, we need to go into the monroe_live/pe_assembly_1/assemblies/ directory
+***and remove/modify the failed assemblies.  This will be discussed in the video.  Failure to do so will
+***create incorrect results for the cluster_analysis step.
+
+***example data screening***
+mv SRR12542859_consensus.fasta SRR12542859_consensus.fasta.fail
+mv SRR12542860_consensus.fasta SRR12542860_consensus.fasta.fail
+mv SRR12542861_consensus.fasta SRR12542861_consensus.fasta.fail
+mv SRR12542863_consensus.fasta SRR12542863_consensus.fasta.fail
+mv SRR12542869_consensus.fasta SRR12542869_consensus.fasta.fail
+***end data screening***
+
+staphb-wf monroe cluster_analysis --output cluster_analysis_1 --config 20-07-01_cluster_analysis.config pe_assembly_1/assemblies/
+
+***If the data wasn't already copied over from the storage bucket, they
+***following would download the data needed from SRA
+
+***retrieving data from SRA***
+
+prefetch SRR12542859 SRR12542860 SRR12542861 SRR12542862 SRR12542863 SRR12542864 SRR12542865 SRR12542866 SRR12542867 SRR12542868 SRR12542869 SRR12542870
+
+fastq-dump --split-files --gzip SRR12542859 SRR12542860 SRR12542861 SRR12542862 SRR12542863 SRR12542864 SRR12542865 SRR12542866 SRR12542867 SRR12542868 SRR12542869 SRR12542870
+</code></pre></div></div>
+
+<p><em><strong>Session 5 - Terra.bio Part 1</strong></em></p>
+
+<p><strong><a href="https://youtu.be/FH2JdQvgmUc">Recording for Session 5 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/fQ-V4PYIBEw">Recording for Session 5 - 2 PM EDT</a></strong></p>
+
+<ul>
+  <li><a href="https://app.terra.bio/">Terra.bio</a> is a broweser interface to running <a href="https://openwdl.org/">WDL</a> workflows on the <a href="https://cloud.google.com/">Google Cloud Platform</a>.</li>
+</ul>
+
+<p><em><strong>Session 6 - Terra.bio Part 2</strong></em></p>
+
+<p><strong><a href="https://youtu.be/JZ_PsKKqW70">Recording for Session 6 - 11 AM EDT</a></strong></p>
+
+<p>Instrutions for working with WDL files on the command line.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># install miniwdl (maybe about 1 minute)
+pip install miniwdl
+
+# test miniwdl (also about 1 minute)
+miniwdl run_self_test
+
+# describe refbased assembly parameters
+miniwdl run https://raw.githubusercontent.com/broadinstitute/viral-pipelines/master/pipes/WDL/workflows/assemble_refbased.wdl
+
+# go get some input files
+gsutil -m cp gs://pathogen-public-dbs/refs/ARTIC_V3_nCoV-2019_NC_045512_primers3.bed .
+gsutil -m cp gs://pathogen-public-dbs/refs/ref-sarscov2-NC_045512.2.fasta .
+
+# fetch a bam from SRA (this takes about 1 minute or less)
+miniwdl run https://raw.githubusercontent.com/broadinstitute/viral-pipelines/master/pipes/WDL/workflows/fetch_sra_to_bam.wdl Fetch_SRA_to_BAM.SRA_ID=SRR12542859
+
+# assemble that sample (this takes 7 mins)
+miniwdl run https://raw.githubusercontent.com/broadinstitute/viral-pipelines/master/pipes/WDL/workflows/assemble_refbased.wdl reads_unmapped_bams=/home/mtn-region/20200916_162418_fetch_sra_to_bam/out/reads_ubam/SRR12542859.bam reference_fasta=ref-sarscov2-NC_045512.2.fasta trim_coords_bed=ARTIC_V3_nCoV-2019_NC_045512_primers3.bed
+
+# Optional: querying json files with jq (instead of searching the above by eye)
+sudo apt-get install jq
+jq -r '.["assemble_refbased.align_to_ref_merged_reads_aligned"]' _LAST/outputs.json
+# returns 18914
+jq -r '.["assemble_refbased.assembly_length_unambiguous"]' _LAST/outputs.json
+# returns 14031
+jq -r '.["assemble_refbased.assembly_mean_coverage"]' _LAST/outputs.json
+# returns 57.09861886767214
+jq -r '.["assemble_refbased.dist_to_ref_snps"]' _LAST/outputs.json
+# returns 12
+jq -r '.["assemble_refbased.dist_to_ref_indels"]' _LAST/outputs.json
+# returns 0
+# all of the above values are identical to what Terra reports!
+
+
+# serially run it on all 12 samples (total runtime is about 2 hours on a 1-core VM)
+for srr in SRR12542859 SRR12542860 SRR12542861 SRR12542862 SRR12542863 SRR12542864 SRR12542865 SRR12542866 SRR12542867 SRR12542868 SRR12542869 SRR12542870; do
+   BAMFILE=$(miniwdl run https://raw.githubusercontent.com/broadinstitute/viral-pipelines/master/pipes/WDL/workflows/fetch_sra_to_bam.wdl Fetch_SRA_to_BAM.SRA_ID=$srr | jq -r '.outputs["fetch_sra_to_bam.reads_ubam"]')
+   miniwdl run https://raw.githubusercontent.com/broadinstitute/viral-pipelines/master/pipes/WDL/workflows/assemble_refbased.wdl reads_unmapped_bams=$BAMFILE reference_fasta=ref-sarscov2-NC_045512.2.fasta trim_coords_bed=ARTIC_V3_nCoV-2019_NC_045512_primers3.bed
+done
+
+## other notes about parallelization
+# Times listed above are for a 1-core VM.
+# With more CPU available, certain steps (e.g. minimap2) will auto parallelize and complete faster, but the overall speed will not increase linearly.
+# Also, with more CPU available, miniwdl will parallelize certain concurrent steps for a single assembly
+# If you have a big (30+ CPU) machine, you can replace the bash for loop with a GNU parallel invocation in order to parallelize across samples
+# miniwdl can submit its work across a Docker Swarm, if you set that up on your back end, but ultimately, will not have complex ways of parallelizing work across large amounts of resources. You should be switching to Cromwell (or Terra) when you get to that scale.
+
+</code></pre></div></div>
+
+<p><em><strong>Session 7 - QC and Data Sharing: GISAID</strong></em></p>
+
+<p><strong><a href="https://youtu.be/j6HbxxEGjRs">Recording for Session 7 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/BH8NfGgqgBQ">Recording for Session 7 - 2 PM EDT</a></strong></p>
+
+<ul>
+  <li><a href="https://www.gisaid.org/">GISAID</a></li>
+</ul>
+
+<blockquote>
+  <p>The GISAID Initiative promotes the rapid sharing of data from all influenza viruses and the coronavirus causing COVID-19. This includes genetic sequence and related clinical and epidemiological data associated with human viruses, and geographical as well as species-specific data associated with avian and other animal viruses, to help researchers understand how viruses evolve and spread during epidemics and pandemics.</p>
+
+  <p>GISAID does so by overcoming disincentive hurdles and restrictions, which discourage or prevented sharing of virological data prior to formal publication.</p>
+
+  <p>The Initiative ensures that open access to data in GISAID is provided free-of-charge to all individuals that agreed to identify themselves and agreed to uphold the GISAID sharing mechanism governed through its Database Access Agreement.</p>
+
+  <p>All bonafide users with GISAID access credentials agreed to the basic premise of upholding a scientific etiquette, by acknowledging the Originating laboratories providing the specimens, and the Submitting laboratories generating sequence and other metadata, ensuring fair exploitation of results derived from the data, and that all users agree that no restrictions shall be attached to data submitted to GISAID, to promote collaboration among researchers on the basis of open sharing of data and respect for all rights and interests.</p>
+</blockquote>
+
+<p><em><strong>Session 8 - QC and Data Sharing: NCBI SRA</strong></em></p>
+
+<p><strong><a href="https://youtu.be/Vjfp_mqSo8Q">Recording for Session 8 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/Heca0kXzd0E">Recording for Session 8 - 2 PM EDT</a></strong></p>
+
+<p><em><strong>Session 9 - QC and Data Sharing: NCBI Genbank</strong></em></p>
+
+<p><strong><a href="https://youtu.be/CZkTZnFZx5s">Recording for Session 9 - 11 AM EDT</a></strong></p>
+
+<p><strong><a href="https://youtu.be/fQea5ELWocE">Recording for Session 9 - 2 PM EDT</a></strong></p>
+
+  </div>
+</section>
+
+</div>
+
+    <!-- Footer -->
+  <footer id="footer">
+    <div class="inner">
+      <ul class="icons">
+        
+          
+            <li>
+              <a href="https://github.com/StaPH-B" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <span class="label">GitHub</span>
+              </a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li>
+              <a href="https://join.slack.com/t/staph-b-dev/shared_invite/zt-w4ivhtq9-2XypNGWXY9vmyeWf0lABng" class="icon alt fa-slack" target="_blank" rel="noopener noreferrer" aria-label="Slack">
+                <span class="label">Slack</span>
+              </a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://www.youtube.com/channel/UC4GughelEJxkJORLTCd51eg" class="icon alt fa-youtube" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+                <span class="label">youtube</span>
+              </a>
+            </li>
+          
+        
+      </ul>
+      <ul class="copyright">
+        <li>&copy; StaPH-B State Public Health Bioinformatics Group</li>
+        <li>Built from the <a href="https://github.com/andrewbanchich/forty-jekyll-theme" target="_blank">forty-jekyll-theme</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Scripts -->
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/jquery.scrolly.min.js"></script>
+  <script src="/assets/js/jquery.scrollex.min.js"></script>
+  <script src="/assets/js/skel.min.js"></script>
+  <script src="/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
