@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <div id="sc">
+      <section>
+
+        <header class="major">
+          <h1 style="padding-top:5%">{{ page.title}}</h1>
+        </header>
+        <div style="padding-bottom: 5%;">
+          {% for member in site.scmembers %}
+            <div class="member">
+              {% if member.headshot %}<span class="image main"><img src="{{ site.baseurl }}/assets/images/sc/{{ member.headshot }}" alt="" /></span>{% endif %}
+                <h4>{{ member.name }}</h4>
+                <p>{{ member.title }}</p>
+                <p><i>{{ member.company }}</i></p>
+                <ul class="list-inline social-buttons">
+                    {% for network in member.socials %}
+                    <li>
+                        <a href="{{ network.url }}">
+                            {% if network.title == "mastodon" %} <i class="fab fa-{{ network.title }}"></i>
+                            {% else %} <i class="fa fa-{{ network.title }}"></i>
+                            {% endif %}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+    </div>
+
+    {% include footer.html %}
+  </body>
+
+</html>
+
+<!--
+<div class="col-sm-4">
+  <div class="team-member">
+      <img src="img/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt="">
+      <h4>{{ member.name }}</h4>
+      <p class="text-muted">{{ member.position }}</p>
+      <ul class="list-inline social-buttons">
+          {% for network in member.social %}
+          <li>
+              <a href="{{ network.url }}">
+                  <i class="fa fa-{{ network.title }}"></i>
+              </a>
+          </li>
+          {% endfor %}
+
+      </ul>
+  </div>
+</div>
+-->
+
+
+<!--
+        {% for member in site.scmembers %}
+          <div style = "display: flex">
+            <div style="float:left; width:25%">
+              {% if member.headshot %}<span class="image main"><img style="border-radius: 50%; border:10px solid white" src="{{ site.baseurl }}/assets/images/sc/{{ member.headshot }}" alt="" /></span>{% endif %}
+              <hr>
+            </div>
+            <div style="float:right;padding-left: 5%; width:70%">
+              <header class="major">
+                <h1>{{ member.name }}</h1>
+              </header>
+                <h2>{{ member.title }}</h2>
+                <h2>{{ member.company }}</h2>
+            </div>
+          </div>
+        {% endfor %}
+-->

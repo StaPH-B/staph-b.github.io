@@ -25,6 +25,75 @@ collections:
   trainings:
     output: true
 
+# SC Members
+scmembers:
+- name: Dr. Kelly Oakeson
+  title: Chief Scientific Officer and Director of NGS and Bioinformatics
+  company: Utah Public Health Lab
+  headshot: kelly_oakeson.jpg
+  socials:
+    - title: twitter
+      url: https://twitter.com/Dr_KFO
+
+- name: Dr. Sean Wang
+  title: Sequencing and Bioinformatics Supervisor
+  company: Minnesota Department of Health
+  headshot: sean_wang.png
+  socials:
+    - title: twitter
+      url: https://twitter.com/SeanW_PHLNGS
+    - title: linkedin
+      url: https://www.linkedin.com/in/xiong-sean-wang-sequencing/
+
+- name: Dr. Kelsey Florek
+  title: Senior Genomics and Data Scientist
+  company: Wisconsin State Laboratory of Hygiene
+  headshot: kelsey_florek.png
+  socials:
+    - title: twitter
+      url: https://twitter.com/kelsey_florek
+    - title: mastodon
+      url: https://mstdn.science/@kflorek
+    - title: linkedin
+      url: https://www.linkedin.com/in/kelseyflorek/
+    - title: github
+      url: https://github.com/k-florek
+
+- name: Logan Fink
+  title: Lead Scientist
+  company: Virginia Division of Consolidated Laboratory Services
+  headshot: logan_fink.jpg
+  socials:
+    - title: twitter
+      url: https://twitter.com/logan_d_fink
+    - title: linkedin
+      url: https://www.linkedin.com/in/logan-fink/
+
+- name: Dr. Christin Hanigan
+  title: Manager, Advanced Molecular Detection
+  company: Association of Public Health Laboratories
+  headshot: christin_hanigan.jpg
+  socials:
+    - title: twitter
+      url: https://twitter.com/chanigan
+    - title: mastodon
+      url: https://mstdn.science/@chanigan
+    - title: linkedin
+      url: https://www.linkedin.com/in/christin-hanigan-940aa73/
+
+- name: Dr. Duncan MacCannell
+  title: Chief Science Officer, OAMD
+  company: Centers for Disease Control and Prevention
+  headshot: duncan_maccannell.jpg
+  socials:
+    - title: twitter
+      url: https://twitter.com/dmaccannell
+    - title: mastodon
+      url: https://mstdn.science/@drm
+    - title: linkedin
+      url: https://www.linkedin.com/in/dmaccannell/
+
+
 # social settings (key must match name of font awesome icon)
 # see https://fontawesome.com/icons?d=gallery&p=2&s=brands
 # Icons are not shown if value is empty
