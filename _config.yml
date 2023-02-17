@@ -34,6 +34,8 @@ scmembers:
   socials:
     - title: twitter
       url: https://twitter.com/Dr_KFO
+    - title: mastodon
+      url: https://mstdn.science/@Dr_KFO
 
 - name: Dr. Sean Wang
   title: Sequencing and Bioinformatics Supervisor
