@@ -3,6 +3,6 @@ title: StaPH-B Steering Committee
 layout: sc_members
 description: ''
 image:
-nav-menu: false
+nav-menu: true
 show_tile: false
 ---

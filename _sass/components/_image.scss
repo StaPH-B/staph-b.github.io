@@ -63,4 +63,18 @@ img {
         margin: (_size(element-margin) * 0.75) 0;
       }
     }
+
+    &.member {
+      display: block;
+      margin-top: (_size(element-margin) * 1.25);
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+
+      @include breakpoint(small) {
+        margin-top: (_size(element-margin) * 0.75);
+      }
+    }
   }

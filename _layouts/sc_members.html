@@ -17,8 +17,8 @@
         <div style="padding-bottom: 5%;">
           {% for member in site.scmembers %}
             <div class="member">
-              {% if member.headshot %}<span class="image main"><img src="{{ site.baseurl }}/assets/images/sc/{{ member.headshot }}" alt="" /></span>{% endif %}
-                <h4>{{ member.name }}</h4>
+              {% if member.headshot %}<span class="member image" ><img src="{{ site.baseurl }}/assets/images/sc/{{ member.headshot }}" alt="" /></span>{% endif %}
+                <h3>{{ member.name }}</h3>
                 <p>{{ member.title }}</p>
                 <p><i>{{ member.company }}</i></p>
                 <ul class="list-inline social-buttons">
